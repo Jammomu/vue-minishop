@@ -1,40 +1,63 @@
 <template>
   <div class="">
-    <!-- 내용을 추가하세요 -->
+    <h1>상품등록하기</h1>
+    <form>
+      <div>
+        <label for="">상품명 : <input type="text" v-model="newProduct.product_name" id="name"></label>
+      </div>
+      <div>
+        <label for="">가격 : <input type="text" v-model="newProduct.product_price" id="price"></label>
+      </div>
+      <div>
+        <label for="">이미지 : <input type="text" v-model="newProduct.path" id="path"></label>
+      </div>
+      <div>
+        <label for="">카테고리1 : 
+          <select v-model="newProduct.category1" id="category1">
+            <option value="">선택하세요</option>
+            <option value="전자기기">전자기기</option>
+            <option value="액세서리">액세서리</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label for="">카테고리2 : 
+          <select v-model="newProduct.category2" id="category2">
+            <option value="">선택하세요</option>
+            <option value="노트북">노트북</option>
+            <option value="모니터">모니터</option>
+            <option value="PC용품">PC용품</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label for="">카테고리3 : 
+          <select v-model="newProduct.category3" id="category3">
+            <option value="">선택하세요</option>
+            <option value="게이밍">게이밍</option>
+            <option value="무선">무선</option>
+          </select>
+        </label>
+      </div>
+      <button type="text" class="btn btn-primary" @click="addGood">상품 등록</button>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ProductCreate',
-  components: {
-    // 추가적으로 사용할 컴포넌트들을 등록합니다.
-  },
-  props: {
-    // 문자열 타입의 prop 예시
-    //sampleString: {
-    //  type: String,
-    //  default: ''
-    //},
-    // 숫자 타입의 prop 예시
-    //sampleNumber: {
-    //  type: Number,
-    //  default: 0
-    //},
-    // 배열 타입의 prop 예시
-    //sampleArray: {
-    //  type: Array,
-    //  default: () => []
-    //},
-    // 객체 타입의 prop 예시
-    //sampleObject: {
-    //  type: Object,
-    //  default: () => ({})
-    //}
-  },
   data() {
     return {
-      // 컴포넌트의 데이터를 초기화합니다.
+      newProduct : {
+        product_name : '',
+        product_price : 0,
+        path : 'none.jpg',
+        category1 : '',
+        category2 : '',
+        category3 : '',
+
+      }
     };
   },
   watch: {
@@ -50,10 +73,10 @@ export default {
     // }
   },
   methods: {
-    // 컴포넌트에서 사용할 메서드를 정의합니다.
-    // sample3() {
-    //   return '';
-    // }
+    addGood(){
+      this.$store.commit('addProduct', this.newProduct);
+      this.$router.push('/sales');
+    }
   },
   setup() {
     // Vue 3 Composition API의 setup 함수에서 추가적인 로직을 처리할 수 있습니다.

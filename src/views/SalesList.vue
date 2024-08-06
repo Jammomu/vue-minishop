@@ -1,71 +1,56 @@
 <template>
-  <div class="">
-    <!-- 내용을 추가하세요 -->
-  </div>
+  <main class="mt-3">
+    <div class="container">
+      <div class="float-end md-3">
+        <button type="button" class="btn btn-dark" @click="gotoCreate">제품등록</button>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>이미지</th>
+            <th>제품번호</th>
+            <th>제품명</th>
+            <th>제품가격</th>
+            <th>카테고리</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(product, idx) in filteredProductList('')" :key="idx">
+            <td>
+              <img :src="`/download/${product.path}`" alt="" style="heigt: 50px; width: auto;">
+            </td>
+            <td>{{ product.product_id }}</td>
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.product_price.toLocaleString() }}</td>
+            <td>{{ product.category1 }}>{{ product.category2 }}>{{ product.category3 }}</td>
+            <td>
+              <button type="button" class="btn btn-info me-1">사진등록</button>
+              <button type="button" class="btn btn-warning me-1">수정</button>
+              <button type="button" class="btn btn-danger me-1" @click="deleteProduct(product.id)">삭제</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   name: 'SalesList',
-  components: {
-    // 추가적으로 사용할 컴포넌트들을 등록합니다.
-  },
-  props: {
-    // 문자열 타입의 prop 예시
-    //sampleString: {
-    //  type: String,
-    //  default: ''
-    //},
-    // 숫자 타입의 prop 예시
-    //sampleNumber: {
-    //  type: Number,
-    //  default: 0
-    //},
-    // 배열 타입의 prop 예시
-    //sampleArray: {
-    //  type: Array,
-    //  default: () => []
-    //},
-    // 객체 타입의 prop 예시
-    //sampleObject: {
-    //  type: Object,
-    //  default: () => ({})
-    //}
-  },
-  data() {
-    return {
-      // 컴포넌트의 데이터를 초기화합니다.
-    };
-  },
-  watch: {
-    // 데이터를 감시하고 처리할 로직을 작성합니다.
-    // sample1() {
-    //   console.log('');
-    // }
-  },
   computed: {
-    // 필요한 계산된 속성을 정의합니다.
-    // sample2() {
-    //   return '';
-    // }
+    ...mapGetters([
+      'filteredProductList'
+    ]),
   },
-  methods: {
-    // 컴포넌트에서 사용할 메서드를 정의합니다.
-    // sample3() {
-    //   return '';
-    // }
-  },
-  setup() {
-    // Vue 3 Composition API의 setup 함수에서 추가적인 로직을 처리할 수 있습니다.
-  },
-  created() {
-    // 컴포넌트가 생성될 때 실행될 로직을 작성합니다.
-  },
-  mounted() {
-    // 컴포넌트가 DOM에 마운트된 직후 실행될 로직을 작성합니다.
-  },
-  unmounted() {
-    // 컴포넌트가 파괴되기 전 실행될 로직을 작성합니다.
+  methods : {
+    ...mapMutations(['deleteProduct']),
+    gotoCreate(){
+      this.$router.push({path : '/create'});
+    }
   }
 };
 </script>
